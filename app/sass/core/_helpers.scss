@@ -2,6 +2,23 @@
     @return #{$pixels / $context}em;
 }
 
+@mixin background-size($value: cover) {
+    @include prefixer(background-size, $value, moz webkit o);
+}
+
+%horizontal-align{
+    position: absolute;
+    left: 50%;
+    @include transform(translate(-50%));
+};
+
+%align{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include transform(translate(-50%, -50%));
+};
+
 %clearfix {
     &:before, &:after {
         content: '';

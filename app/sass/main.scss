@@ -5,6 +5,390 @@
 @import "core/base";
 @import "core/fonts";
 @import "core/media";
-@import "core/sprite";
 
+.hero{
+    background: url(../img/hero-bg.jpg) no-repeat;
+    @include background-size();
+    height: 350px;
+    display: none;
+    @include min-screen-height($iphone-height){
+        display: block;
+    }
+}
+
+.page{
+    position: relative;
+    z-index: 1;
+    background: $white;
+    &:before{
+        content: '';
+        position: absolute;
+        height: 1px;
+        width: 100%;
+        top: 105.5px;
+        background: rgba(183, 183, 183, 0.45);
+        @include min-screen-height($iphone-height){
+            top: 85px;
+        }
+    }
+}
+
+.container{
+    @extend %container;
+    padding: 0 $cg;
+}
+
+.nav{
+    @extend %clearfix;
+    position: relative;
+    padding: 125px 0 10px;
+    text-align: center;
+    @include min-screen($large) {
+        padding: 0 80px 10px 140px;
+        text-align: left;
+    }
+    &-left{
+        @include min-screen($large){
+            float: left;
+        }
+    }
+    &-right{
+        @include min-screen($large){
+            float: right;
+        }
+    }
+    &__item{
+        display: block;
+        padding: 26px 0 6px;
+        @include transition(all $td);
+        @include min-screen($large){
+            display: inline-block;
+            padding: 26px 36px 6px 14px;
+        }
+        &:last-child{
+            padding-right: 4px;
+        }
+        &:hover{
+            .nav__item-link{
+                color: $link-color;
+                border-color: rgba(54, 54, 54, 0.4);
+            }
+            .has-caret:after{
+                border-top-color: $link-color;
+            }
+        }
+        &-link{
+            display: inline-block;
+            color:  $nav-link-color;
+            letter-spacing: 2px;
+            padding-bottom: 8px;
+            font-size: 1.5em; 
+            font-weight: 700;
+            line-height: 1.25;
+            @include transition(all $td);
+            border-bottom: 5px solid transparent;
+            &_active{
+                color: $link-color;
+                border-color: rgba(54, 54, 54, 0.4);
+            }
+        }
+    }
+}
+
+.has-caret{
+    position: relative;
+    &:after{
+        content: '';
+        position: absolute;
+        @include triangle(10px 9px, $border-color, down);
+        right: -17px;
+        top: 11px;
+    }
+}
+
+.has-dropdown{
+    position: relative;
+}
+
+.dropdown{
+    &-wr{
+        display: none;
+        position: fixed;
+        background: rgba(255, 255, 255, 0.9);
+        z-index: 2;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        @include size(100% 100%);
+        &_active{
+            display: table;
+            @include min-screen($large){
+                display: block;
+                bottom: auto;
+            }
+        }
+        @include min-screen($large){
+            position: absolute;
+            top: 100%;
+            padding: 3px 21px 27px 14px;
+            border: 1px solid #d8d8d8;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            border-radius: 5px;
+            @include size(227px auto);
+            background: $white;
+        }
+    }
+    &{
+        @include max-screen(992px){
+            display: table-cell;
+            vertical-align: middle;
+            padding: 0 $cg;
+        }
+    }
+    &__item{
+        @include min-screen($large){
+            border-bottom: 1px solid $border-color;
+        }
+        &-link{
+            display: block;
+            padding: 18px 0 17px 8px;
+            font-size: em(18);
+            color: #000;
+            letter-spacing: 1px;
+            @include transition(all $td);
+            @include min-screen($large){
+                color: $nav-link-color;
+            }
+            &:hover{
+                color: $link-color;
+            }
+        }
+    }
+    &-close{
+        position: absolute;
+        padding: 20px;
+        display: inline-block;
+        right: 0;
+        top: 0;
+    }
+}
+
+.icon-bar{
+    position: relative;
+    width: 2em;
+    height: 0.2em;
+    display: block;
+    background: #000;
+    top: 0.2em;
+    @include transform(rotate(-45deg));
+    @include min-screen($large){
+        display: none;
+    }
+    &+&{
+        margin-top: 0.3em;
+        top: -0.3em;
+        @include transform(rotate(45deg));
+    }
+}
+
+.logo{
+    @extend %horizontal-align;
+    display: inline-block;
+    overflow: hidden;
+    top: 0;
+    @include size(211px 211px);
+    border-radius: 50%;
+    @include min-screen-height($iphone-height){
+        top: -92px;
+    }
+    &__img{
+        @include transition(all $td);
+        &:hover{
+            @include transform(rotate(360deg));
+        }
+    }
+}
+
+.greeting{
+    color:  #a0a0a0;
+    font-size: 1.13em;
+    font-weight: 400;
+    line-height: 1.667;
+    position: relative;
+    text-align: center;
+    margin: 99px 0 50px;
+    &:before, &:after{
+        content: '';
+        position: absolute;
+        display: inline-block;
+        @include size(32px 1px);
+        background: #b7b7b7;
+        left: 50%;
+        margin-left: (-32px/2);
+    }
+    &:before{
+        bottom: -4px;
+    }
+    &:after{
+        bottom: -9px;
+    }
+}
+
+.posts{
+    text-align: center;
+}
+
+.post{
+    padding: 0 0 38px 0;
+    @extend %clearfix;
+    position: relative;
+    border-bottom: 1px dashed #d7d7d7;
+    margin-bottom: 35px;
+    text-align: left;
+    @include min-screen($middle){
+        padding: 0 0 38px 123px;
+    }
+    &-date{
+        position: relative;
+        margin: 0 auto;
+        border-radius: 50%;
+        border: 6.69px solid $post-border-color;
+        @include size(123px);
+        @include min-screen($middle){
+            position: absolute;
+            left: 0;
+            top: 3px;
+        }
+        &__inner{
+            @extend %align;
+            color:  $link-color;
+            font-size: 1.88em;
+            font-weight: 700;
+            line-height: 1;
+            white-space: pre;
+            letter-spacing: 2px;
+        }
+    }
+    &-info{
+        padding: 30px 0 9px;
+        border-bottom: 1px solid $post-border-color;
+        @include min-screen($small){
+            padding: 30px 0 9px 13px;
+        }
+        &__item{
+            display: block;
+            color:  #c0c0c0;
+            font-size: 0.88em;
+            line-height: 1.714; 
+            position: relative;
+            padding-left: 13px;
+            &+&{
+                padding-left: 45px;
+            }
+            @include min-screen($small){
+                display: inline-block;
+                &+&{
+                    border-left: 1px solid $post-border-color;
+                }
+                padding-right: 11px;
+            }
+            &-link{
+                color: $link-color;
+                @include transition(all $td);
+                &:hover{
+                    color: darken($link-color, 15%);
+                }
+            }
+            &_like{
+                padding-left: 35px;
+            }
+            &_comment{
+                padding-left: 45px;
+            }
+            &_like:before, &_comment:before{
+                position: absolute;
+                color: $link-color;
+                font-size: 18px;
+                top: 3px;
+            }
+            &_like:before{
+                left: 13px;
+                @include min-screen($small){
+                    left: 12px;
+                }
+            }
+            &_comment:before{
+                left: 13px;
+            }
+        }
+    }
+    &-container{
+        padding: 0 0 0 13px;
+    }
+    &-header{
+        color:  #272626;
+        font-size: em(27);
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: 4px;
+        margin: 24px 0 15px;
+    }
+    &-body{
+        color:  #8e8e8e;
+        font-size: 1em;
+        line-height: 1.5;
+        margin-bottom: 14px;
+    }
+}
+
+.slide-down{
+    color:  $link-color;
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 1.5;
+    border-bottom: 1px solid $border-color;
+    letter-spacing: 1px;
+    padding-bottom: 1px;
+    @include transition(all $td);
+    &:hover{
+        color: darken($link-color, 15%);
+    }
+}
+
+.btn{
+    display: inline-block;
+    background:  $link-color;
+    border-radius: 5px;
+    color:  $white;
+    font-size: 1.13em;
+    font-weight: 700;
+    line-height: 1.667;
+    @include transition(all $td);
+    padding: 12px 22px;
+    letter-spacing: 1px;
+    margin-top: 13px;
+    @include transition(all $td);
+    &:hover{
+        background: darken($link-color ,10%);
+    }
+}
+
+.footer{
+    padding: 80px 0;
+}
+
+.copyright{
+    text-align: center;
+    color:  #aeaeae;
+    font-size: 1.13em;
+    line-height: 1.667; 
+    letter-spacing: 1px;
+    &-link{
+        color:  $link-color;
+        font-weight: 700;
+        &:hover{
+            color: darken($link-color, 10%);
+        }
+    }
+}
 
