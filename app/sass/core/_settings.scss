@@ -1,0 +1,21 @@
+//fonts
+$browser-context: 16;
+$base-font-family: 'Open Sans', sans-serif;
+$light:        300;
+$normal:       400;
+$semibold:     600;
+$bold:         700;
+$extrabold:    800;
+$base-color: #384d5c;
+
+
+//grid
+$container-width: 1170px;
+$cw: $container-width;
+$container-gutter: 15px;
+$cg: $container-gutter;
+
+
+//fonts
+@include font-face(Rockwell, '../fonts/rockwell-webfont');
+@include font-face(Rockwell, '../fonts/rockwell-bold-webfont', bold);
